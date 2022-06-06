@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+    <title>Generate Quote</title>
+    <style>
+        body{
+            text-align: center;
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            color: rgb(78, 146, 201);;
+        }
+        main{
+            margin: auto;
+            width: 800px;
+            background-color: rgb(78, 146, 201);
+            padding: 70px;
+        }
+        .container{
+            background-color: white;
+            padding: 30px;
+        }
+        .quotes{
+            text-align: start;
+            font-size: 40px;
+            padding: 0px;
+            margin: 0px;
+        }
+        .text{
+            font-size: 50px;
+            padding-left: 11px;
+        }
+        .author{
+            text-align: end;
+            font-size: 25px;
+            margin: 30px 0px;
+            padding-right: 50px;
+        }
+        .footer{
+            padding: 0px 30px;
+            display: flex;
+            justify-content: space-between;
+        }
+        button{
+            background-color: rgb(78, 146, 201);
+            padding: 5px 15px;
+            border-radius: 10px;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        a{
+            text-decoration: none;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="container">  
+            <div class="quotes"><i class="fa-solid fa-quote-left"></i></div>
+            <div class="text"> Your attitude determines your direction</div>
+            <div class="author">-Ralph Waldo Emerson</div>
+            <div class="footer">
+                <button class="btn">Next quote</button>
+                <button class="twt"><a ><i class="fa-brands fa-twitter" ></i></a></button>
+            </div>          
+        </div>
+    </main>    
+
+    <script>
+        const container = document.querySelector(".container")
+        const text = document.querySelector(".text")
+        const author = document.querySelector(".author")
+        const button = document.querySelector(".btn")
+        const twitter = document.querySelector(".twt")
+        const url = "https://api.quotable.io/random"
+        let data = {}
+
+        const getQuotes = async () => {
+            const req = await fetch("https://api.quotable.io/random")
+            data = await req.json()
+            text.innerText = data.content
+            author.innerText = "- "+data.author
+            console.log(data)
+        }
+        getQuotes()
+        button.addEventListener("click", getQuotes)
+        twitter.addEventListener("click", ()=>{
+            window.open(`https://twitter.com/intent/tweet?text="${data.content}"%0a- ${data.author}`);
+        })
+    </script>
+</body>
+</html>
